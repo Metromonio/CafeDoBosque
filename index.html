@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ca.FÉ - Bosque Manoel Jorge</title>
+    <style>
+        /* Importando a fonte elegante sugerida para o design */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
+        :root {
+            --verde-escuro: #1b432a;
+            --fundo-verde-pastel: #e4efe7; 
+            --papel-envelhecido: #fcfbf8;  
+            --texto-principal: #3d312a;    
+            --texto-secundario: #6e5c4f;   
+            /* Verde oficial mais escuro do WhatsApp para melhor contraste */
+            --whatsapp: #128C7E; 
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            /* Aplicando a nova fonte */
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: var(--fundo-verde-pastel);
+            color: var(--texto-principal);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 15px;
+            padding-bottom: 80px; 
+            position: relative;
+            overflow-x: hidden; 
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(27, 67, 42, 0.04) 0%, transparent 30%),
+                radial-gradient(circle at 85% 75%, rgba(27, 67, 42, 0.05) 0%, transparent 40%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -5px;
+            left: -10%;
+            width: 120%;
+            height: 70px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath fill='%23c8dacd' opacity='0.95' d='M-5,100 Q5,30 15,100 Z M10,100 Q20,60 30,100 Z M25,100 Q35,20 45,100 Z M40,100 Q50,70 60,100 Z M55,100 Q65,40 75,100 Z M70,100 Q80,25 90,100 Z M85,100 Q95,65 105,100 Z'/%3E%3C/svg%3E");
+            background-size: 85px 100%; 
+            background-repeat: repeat-x;
+            z-index: 1; 
+            transform-origin: bottom;
+            animation: ventoGrama 6s ease-in-out infinite alternate;
+            pointer-events: none;
+        }
+
+        @keyframes ventoGrama {
+            0% { transform: skewX(-3deg) translateY(0); }
+            100% { transform: skewX(4deg) translateY(1px); }
+        }
+
+        .folha-caindo {
+            position: fixed;
+            z-index: 1001; 
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%231b432a' d='M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C14,7.62 15.9,9.56 22,12C20.69,9.89 19,8.76 17,8Z'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+            pointer-events: none; 
+            animation: quedaFolha 4s ease-out forwards; 
+        }
+
+        @keyframes quedaFolha {
+            0% { top: -50px; opacity: 1; transform: rotate(var(--rotacao-inicial)) translateX(0); }
+            25% { transform: rotate(var(--rotacao-inicial)) translateX(-15px); }
+            50% { transform: rotate(var(--rotacao-inicial)) translateX(15px); }
+            75% { transform: rotate(var(--rotacao-inicial)) translateX(-10px); }
+            100% { top: 110vh; opacity: 0; transform: rotate(var(--rotacao-inicial)) translateX(0); }
+        }
+
+        @keyframes entradaSuave {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-container {
+            background-color: var(--papel-envelhecido);
+            width: 100%;
+            max-width: 420px;
+            border-radius: 20px;
+            padding: 30px 20px;
+            box-shadow: 0 10px 30px rgba(27, 67, 42, 0.15);
+            text-align: center;
+            position: relative; 
+            z-index: 10; 
+            animation: entradaSuave 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+        .logo {
+            width: 90px;
+            height: 90px;
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px auto;
+            font-size: 22px;
+            font-weight: 800;
+            border: 4px solid var(--papel-envelhecido);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            background: 
+                repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0,0,0,0.05) 2px, rgba(0,0,0,0.05) 4px), 
+                radial-gradient(circle at center, #265c3b 0%, var(--verde-escuro) 100%);
+        }
+
+        h1 { color: var(--verde-escuro); font-size: 1.4rem; margin-bottom: 4px; }
+        .subtitulo { font-size: 0.85rem; font-weight: 700; color: var(--verde-escuro); margin-bottom: 15px; }
+        .bio { font-size: 0.95rem; color: var(--texto-secundario); margin-bottom: 20px; line-height: 1.5; }
+
+        .status-container {
+            background-color: rgba(228, 239, 231, 0.4);
+            border: 1px solid rgba(27, 67, 42, 0.15);
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-bottom: 25px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent; 
+        }
+
+        .status-header { display: flex; justify-content: space-between; align-items: center; font-weight: bold; font-size: 0.95rem; }
+        
+        /* Nova bolinha perfeitamente alinhada em CSS */
+        #status-indicador { display: flex; align-items: center; gap: 8px; }
+        .status-aberto { color: #2e7d32; }
+        .status-aberto::before { content: ''; display: block; width: 10px; height: 10px; border-radius: 50%; background-color: #2e7d32; }
+        .status-fechado { color: #c62828; }
+        .status-fechado::before { content: ''; display: block; width: 10px; height: 10px; border-radius: 50%; background-color: #c62828; }
+
+        .status-detalhes {
+            max-height: 0; overflow: hidden; transition: max-height 0.3s ease, margin-top 0.3s ease;
+            font-size: 0.85rem; color: var(--texto-secundario);
+        }
+        .status-container.expandido .status-detalhes { max-height: 100px; margin-top: 10px; }
+        .setinha { transition: transform 0.3s; font-size: 0.8rem; color: var(--verde-escuro); }
+        .status-container.expandido .setinha { transform: rotate(180deg); }
+
+        .botoes { display: flex; flex-direction: column; gap: 12px; margin-bottom: 25px; }
+        .btn { display: block; width: 100%; padding: 14px; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 1rem; transition: transform 0.2s; }
+        .btn:active { transform: scale(0.96); }
+        .btn-cardapio { background-color: var(--verde-escuro); color: #ffffff; }
+        .btn-whatsapp { background-color: var(--whatsapp); color: #ffffff; }
+
+        .novidades {
+            background-color: rgba(228, 239, 231, 0.6); padding: 15px; border-radius: 12px;
+            font-size: 0.85rem; color: var(--verde-escuro); margin-bottom: 20px;
+            border: 1px dashed rgba(27, 67, 42, 0.4);
+        }
+        .rodape { font-size: 0.75rem; color: var(--texto-secundario); line-height: 1.6; }
+        .rodape strong { color: var(--verde-escuro); }
+        .link-endereco { color: inherit; text-decoration: none; display: block; margin-top: 5px; transition: opacity 0.2s; }
+
+        /* --- MENU FLUTUANTE --- */
+        .fab-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; display: flex; flex-direction: column-reverse; align-items: center; }
+        .fab-toggle { width: 60px; height: 60px; border-radius: 50%; background-color: var(--verde-escuro); color: white; border: none; box-shadow: 0 4px 12px rgba(27, 67, 42, 0.4); font-size: 28px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: transform 0.3s ease; z-index: 2; }
+        .fab-options { display: flex; flex-direction: column-reverse; gap: 12px; margin-bottom: 15px; opacity: 0; visibility: hidden; transform: translateY(20px); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .fab-option { width: 48px; height: 48px; border-radius: 50%; background-color: var(--papel-envelhecido); color: var(--verde-escuro); border: none; box-shadow: 0 3px 8px rgba(0,0,0,0.15); font-size: 20px; display: flex; justify-content: center; align-items: center; text-decoration: none; transition: transform 0.2s; }
+        .fab-option:active { transform: scale(0.9); }
+        .fab-container.active .fab-options { opacity: 1; visibility: visible; transform: translateY(0); }
+        .fab-container.active .fab-toggle { transform: rotate(45deg); background-color: #2c2c2c; }
+
+        /* --- MODAL DA CALCULADORA --- */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(27, 67, 42, 0.6); backdrop-filter: blur(4px); z-index: 2000; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: all 0.3s; }
+        .modal-overlay.ativo { opacity: 1; visibility: visible; }
+        .modal-content { background: var(--papel-envelhecido); width: 90%; max-width: 350px; border-radius: 20px; padding: 30px 25px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transform: scale(0.9); transition: transform 0.3s; position: relative; }
+        .modal-overlay.ativo .modal-content { transform: scale(1); }
+        .btn-fechar-modal { position: absolute; top: 15px; right: 20px; background: transparent; border: none; font-size: 24px; color: var(--texto-secundario); cursor: pointer; }
+        .modal-title { color: var(--verde-escuro); margin-bottom: 15px; font-size: 1.2rem; }
+        .input-voltas { width: 100%; padding: 12px; border-radius: 10px; border: 2px solid rgba(27, 67, 42, 0.2); font-size: 1.2rem; text-align: center; margin-bottom: 15px; background: transparent; color: var(--texto-principal); outline: none; }
+        .input-voltas:focus { border-color: var(--verde-escuro); }
+    </style>
+</head>
+<body>
+
+    <div class="card-container">
+        
+        <div class="logo">Ca.FÉ</div>
+        
+        <h1>Ca.FÉ</h1>
+        <h2 class="subtitulo">📍 Dentro do Bosque Manoel Jorge</h2>
+        
+        <p class="bio">
+            Um caFÉ com FÉ, vibe boa, repleto de natureza e gostosuras ☕🍃
+        </p>
+
+        <div class="status-container" onclick="toggleHorarios()">
+            <div class="status-header">
+                <span id="status-indicador" class="status-fechado">Verificando...</span>
+                <span class="setinha">▼</span>
+            </div>
+            <div class="status-detalhes">
+                <strong>Horários de funcionamento</strong><br>
+                Terça a Domingo<br>
+                07:30 às 18:00
+            </div>
+        </div>
+
+        <div class="botoes">
+            <a href="https://cardapio.ai/cafe-no-bosque" target="_blank" class="btn btn-cardapio">📋 Ver Cardápio</a>
+            <a href="https://wa.me/5519986105706?text=Ol%C3%A1%21%20Vim%20pelo%20novo%20site%20e%20gostaria%20de%20saber%20mais." target="_blank" class="btn btn-whatsapp">📱 Falar no WhatsApp</a>
+        </div>
+        <div class="novidades" id="secao-novidades">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <strong>📷 Últimas do Bosque</strong>
+                <a href="https://www.instagram.com/ca.fe_nobosquemanoeljorge/" target="_blank" style="font-size: 0.8rem; color: var(--verde-escuro); text-decoration: none; font-weight: bold;">Ver no Insta →</a>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+                <div style="aspect-ratio: 1/1; background-color: #d1dfd5; border-radius: 8px; background-image: url('https://images.unsplash.com/photo-1559525839-b184a4d698c7?w=300&q=80'); background-size: cover; background-position: center;"></div>
+                <div style="aspect-ratio: 1/1; background-color: #d1dfd5; border-radius: 8px; background-image: url('https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=300&q=80'); background-size: cover; background-position: center;"></div>
+                <div style="aspect-ratio: 1/1; background-color: #d1dfd5; border-radius: 8px; background-image: url('https://images.unsplash.com/photo-1541167760496-1628856ab772?w=300&q=80'); background-size: cover; background-position: center;"></div>
+            </div>
+            <p style="font-size: 0.75rem; margin-top: 12px; color: var(--texto-secundario);">
+                *As novidades e os melhores momentos do bosque atualizados direto do nosso feed.
+            </p>
+        </div>
+
+        <div class="rodape">
+            <strong>📍 Endereço:</strong><br>
+            <a href="https://maps.google.com/?q=Rua+15+de+Novembro,+864,+Jardim+Santa+Rosa,+Nova+Odessa+-+SP" target="_blank" class="link-endereco">
+                Rua 15 de Novembro, nº 864<br>
+                Jardim Santa Rosa, Nova Odessa - SP<br>
+                CEP: 13460-000
+            </a>
+        </div>
+    </div>
+
+    <div class="fab-container" id="fabMenu">
+        <button class="fab-toggle" onclick="toggleFab()">+</button>
+        <div class="fab-options">
+            <a href="https://cardapio.ai/cafe-no-bosque" target="_blank" class="fab-option" title="Cardápio">📋</a>
+            <a href="https://maps.google.com/?q=Rua+15+de+Novembro,+864,+Jardim+Santa+Rosa,+Nova+Odessa+-+SP" target="_blank" class="fab-option" title="Como chegar">📍</a>
+            <a href="#" class="fab-option" title="Desafio do Bosque" onclick="abrirCalculadora(); return false;">🏃</a>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalCalculadora">
+        <div class="modal-content">
+            <button class="btn-fechar-modal" onclick="fecharCalculadora()">×</button>
+            <h2 class="modal-title">🏃 Desafio do Bosque</h2>
+            <p style="font-size: 0.9rem; color: var(--texto-secundario); margin-bottom: 15px;">
+                Quantas voltas você deu no Bosque Manoel Jorge hoje?
+            </p>
+            <input type="number" id="input-voltas" class="input-voltas" placeholder="Ex: 3" min="1" oninput="calcularCorrida()">
+            <div id="resultado-corrida"></div>
+        </div>
+    </div>
+
+    <script>
+        function verificarStatus() {
+            const agora = new Date();
+            const dia = agora.getDay(); 
+            const horas = agora.getHours();
+            const minutos = agora.getMinutes();
+            const tempoAtual = horas * 60 + minutos; 
+
+            const horaAbertura = 7 * 60 + 30;
+            const horaFechamento = 18 * 60;
+            const indicador = document.getElementById('status-indicador');
+
+            if (dia !== 1 && tempoAtual >= horaAbertura && tempoAtual < horaFechamento) {
+                indicador.textContent = "Aberto agora";
+                indicador.className = "status-aberto";
+            } else {
+                indicador.textContent = "Fechado agora";
+                indicador.className = "status-fechado";
+            }
+        }
+
+        verificarStatus();
+        setInterval(verificarStatus, 60000); 
+
+        function toggleHorarios() { document.querySelector('.status-container').classList.toggle('expandido'); }
+        function toggleFab() { document.getElementById('fabMenu').classList.toggle('active'); }
+
+        function abrirCalculadora() {
+            document.getElementById('modalCalculadora').classList.add('ativo');
+            toggleFab();
+            document.getElementById('input-voltas').value = '';
+            document.getElementById('resultado-corrida').innerHTML = '';
+        }
+
+        function fecharCalculadora() { document.getElementById('modalCalculadora').classList.remove('ativo'); }
+
+        function calcularCorrida() {
+            const input = document.getElementById('input-voltas').value;
+            const resultado = document.getElementById('resultado-corrida');
+            
+            if(!input || input <= 0) { resultado.innerHTML = ""; return; }
+
+            const METROS_POR_VOLTA = 800; 
+            const CALORIAS_POR_KM = 70; 
+            const km = (input * METROS_POR_VOLTA) / 1000;
+            const calorias = Math.round(km * CALORIAS_POR_KM);
+            
+            let recomendacao = "";
+            if(calorias < 150) { recomendacao = "Um <strong>Café Expresso</strong> para manter o ritmo! ☕"; } 
+            else if(calorias < 350) { recomendacao = "Merece nosso famoso <strong>Pão de Queijo</strong>! 🧀"; } 
+            else { recomendacao = "Corrida intensa! Que tal um <strong>Pedaço de Bolo</strong> para repor? 🍰"; }
+
+            resultado.innerHTML = `
+                <div style="background: rgba(27, 67, 42, 0.05); padding: 15px; border-radius: 10px; margin-top: 15px; border: 1px dashed rgba(27, 67, 42, 0.3);">
+                    <span style="font-size: 1.1rem; color: var(--verde-escuro);"><strong>${km.toFixed(1).replace('.', ',')} km</strong> percorridos!</span><br>
+                    🔥 Aprox. <strong>${calorias} kcal</strong> gastas.<br><br>
+                    <span style="color: var(--verde-escuro); font-size: 0.85rem;">Sugestão do Ca.FÉ:</span><br> 
+                    ${recomendacao}
+                </div>
+            `;
+        }
+
+        let startX, startY;
+        document.body.addEventListener('pointerdown', function(e) { startX = e.clientX; startY = e.clientY; });
+
+        document.body.addEventListener('pointerup', function(e) {
+            const distance = Math.sqrt(Math.pow(e.clientX - startX, 2) + Math.pow(e.clientY - startY, 2));
+            const isInteractive = ['A', 'BUTTON', 'INPUT'].includes(e.target.tagName);
+            
+            if (distance < 10 && !isInteractive && !e.target.closest('#fabMenu') && !e.target.closest('.status-container') && !e.target.closest('#modalCalculadora')) {
+                const leaf = document.createElement('div');
+                leaf.className = 'folha-caindo';
+                leaf.style.left = e.clientX + 'px';
+                leaf.style.top = '-50px'; 
+                leaf.style.width = leaf.style.height = (Math.random() * 10 + 15) + 'px';
+                leaf.style.setProperty('--rotacao-inicial', (Math.random() * 360) + 'deg');
+                document.body.appendChild(leaf);
+                setTimeout(() => leaf.remove(), 4000);
+            }
+        });
+    </script>
+</body>
+</html>
